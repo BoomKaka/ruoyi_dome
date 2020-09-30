@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('配件列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>主类：</label>
+                                <input type="text" name="fitMainclass"/>
+                            </li>
+                            <li>
+                                <label>辅类：</label>
+                                <input type="text" name="fitFuclass"/>
+                            </li>
+                            <li>
+                                <label>桦汉型号：</label>
+                                <input type="text" name="fitEnnoModel"/>
+                            </li>
+                            <li>
+                                <label>料号：</label>
+                                <input type="text" name="fitItemno"/>
+                            </li>
+                            <li class="select-time">
+                                <label>update：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginFitUpdate]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endFitUpdate]"/>
+                            </li>
+                            <li>
+                                <label>供应商：</label>
+                                <input type="text" name="fitSupplier"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="production:fittings:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="production:fittings:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="production:fittings:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="production:fittings:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('production:fittings:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('production:fittings:remove')}]];
+        var prefix = ctx + "production/fittings";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "配件",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'fittingsId',
+                    title: '主键',
+                    visible: false
+                },
+                {
+                    field: 'fitMainclass',
+                    title: '主类'
+                },
+                {
+                    field: 'fitFuclass',
+                    title: '辅类'
+                },
+                {
+                    field: 'fitEnnoModel',
+                    title: '桦汉型号'
+                },
+                {
+                    field: 'fitItemno',
+                    title: '料号'
+                },
+                {
+                    field: 'fitMqq',
+                    title: 'MQQ(pcs)'
+                },
+                {
+                    field: 'fitPrice',
+                    title: 'Price'
+                },
+                {
+                    field: 'fitPriceTax',
+                    title: '含税价格'
+                },
+                {
+                    field: 'fitDescribe',
+                    title: '产品简述'
+                },
+                {
+                    field: 'fitUpdate',
+                    title: 'update'
+                },
+                {
+                    field: 'fitCost',
+                    title: 'Cost'
+                },
+                {
+                    field: 'fitCostTax',
+                    title: '含税成本'
+                },
+                {
+                    field: 'fitNochange',
+                    title: '不可动'
+                },
+                {
+                    field: 'fitReserve',
+                    title: '预留'
+                },
+                {
+                    field: 'fitGp',
+                    title: 'GP'
+                },
+                {
+                    field: 'fitSupplier',
+                    title: '供应商'
+                },
+                {
+                    field: 'fitSuppItemno',
+                    title: '供应商料号'
+                },
+                {
+                    field: 'fitOther',
+                    title: '其他'
+                },
+                {
+                    field: 'fitPn',
+                    title: 'P/N'
+                },
+                {
+                    field: 'fitFanePrice',
+                    title: 'Fan Price'
+                },
+                {
+                    field: 'fitFancPrice',
+                    title: '风扇价格'
+                },
+                {
+                    field: 'fitCostOther',
+                    title: '未税成本'
+                },
+                {
+                    field: 'fitManufacturerrate',
+                    title: '厂商税率'
+                },
+                {
+                    field: 'fitCosttaxOther',
+                    title: '含税成本'
+                },
+                {
+                    field: 'fitGpOther',
+                    title: 'GP'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.fittingsId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.fittingsId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

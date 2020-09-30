@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.production.mapper.ProSizepropertyMapper">
+    
+    <resultMap type="ProSizeproperty" id="ProSizepropertyResult">
+        <result property="sizepId"    column="sizep_id"    />
+        <result property="sizepName"    column="sizep_name"    />
+        <result property="sizepParentid"    column="sizep_parentId"    />
+        <result property="sizepOrdernum"    column="sizep_orderNum"    />
+        <result property="sizepUnable"    column="sizep_unable"    />
+        <result property="sizepCreator"    column="sizep_creator"    />
+        <result property="sizepCreattime"    column="sizep_creattime"    />
+        <result property="sizepUpdatatime"    column="sizep_updatatime"    />
+        <result property="parentName" column="parent_name" />
+    </resultMap>
+
+    <sql id="selectProSizepropertyVo">
+        select sizep_id, sizep_name, sizep_parentId, sizep_orderNum, sizep_unable, sizep_creator, sizep_creattime, sizep_updatatime from pro_sizeproperty
+    </sql>
+
+    <select id="selectProSizepropertyList" parameterType="ProSizeproperty" resultMap="ProSizepropertyResult">
+        <include refid="selectProSizepropertyVo"/>
+        <where>  
+            <if test="sizepName != null  and sizepName != ''"> and sizep_name like concat('%', #{sizepName}, '%')</if>
+        </where>
+        order by sizep_parentId
+    </select>
+
+    <select id="selectProSizepropertyByName" parameterType="ProSizeproperty" resultMap="ProSizepropertyResult">
+        <include refid="selectProSizepropertyVo"></include>
+        where sizep_name = #{sizepName}
+    </select>
+    
+    <select id="selectProSizepropertyById" parameterType="Long" resultMap="ProSizepropertyResult">
+        select t.sizep_id, t.sizep_name, t.sizep_parentId, t.sizep_orderNum, t.sizep_unable, t.sizep_creator, t.sizep_creattime, t.sizep_updatatime, p.sizep_name as parent_name
+        from pro_sizeproperty t
+        left join pro_sizeproperty p on p.sizep_id = t.sizep_parentId
+        where t.sizep_id = #{sizepId}
+    </select>
+        
+    <insert id="insertProSizeproperty" parameterType="ProSizeproperty" useGeneratedKeys="true" keyProperty="sizepId">
+        insert into pro_sizeproperty
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sizepName != null">sizep_name,</if>
+            <if test="sizepParentid != null">sizep_parentId,</if>
+            <if test="sizepOrdernum != null">sizep_orderNum,</if>
+            <if test="sizepUnable != null">sizep_unable,</if>
+            <if test="sizepCreator != null">sizep_creator,</if>
+            <if test="sizepCreattime != null">sizep_creattime,</if>
+            <if test="sizepUpdatatime != null">sizep_updatatime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sizepName != null">#{sizepName},</if>
+            <if test="sizepParentid != null">#{sizepParentid},</if>
+            <if test="sizepOrdernum != null">#{sizepOrdernum},</if>
+            <if test="sizepUnable != null">#{sizepUnable},</if>
+            <if test="sizepCreator != null">#{sizepCreator},</if>
+            <if test="sizepCreattime != null">#{sizepCreattime},</if>
+            <if test="sizepUpdatatime != null">#{sizepUpdatatime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProSizeproperty" parameterType="ProSizeproperty">
+        update pro_sizeproperty
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sizepName != null">sizep_name = #{sizepName},</if>
+            <if test="sizepParentid != null">sizep_parentId = #{sizepParentid},</if>
+            <if test="sizepOrdernum != null">sizep_orderNum = #{sizepOrdernum},</if>
+            <if test="sizepUnable != null">sizep_unable = #{sizepUnable},</if>
+            <if test="sizepCreator != null">sizep_creator = #{sizepCreator},</if>
+            <if test="sizepCreattime != null">sizep_creattime = #{sizepCreattime},</if>
+            <if test="sizepUpdatatime != null">sizep_updatatime = #{sizepUpdatatime},</if>
+        </trim>
+        where sizep_id = #{sizepId}
+    </update>
+
+    <delete id="deleteProSizepropertyById" parameterType="Long">
+        delete from pro_sizeproperty where sizep_id = #{sizepId}
+    </delete>
+
+    <delete id="deleteProSizepropertyByIds" parameterType="String">
+        delete from pro_sizeproperty where sizep_id in 
+        <foreach item="sizepId" collection="array" open="(" separator="," close=")">
+            #{sizepId}
+        </foreach>
+    </delete>
+
+</mapper>

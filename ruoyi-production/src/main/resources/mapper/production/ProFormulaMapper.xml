@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.production.mapper.ProFormulaMapper">
+    
+    <resultMap type="ProFormula" id="ProFormulaResult">
+        <result property="forId"    column="for_id"    />
+        <result property="forClass"    column="for_class"    />
+        <result property="forType"    column="for_type"    />
+        <result property="forDecribes"    column="for_decribes"    />
+        <result property="forProCpu"    column="for_pro_cpu"    />
+        <result property="forProMemory"    column="for_pro_memory"    />
+        <result property="forProStorage1"    column="for_pro_storage1"    />
+        <result property="forProStorage2"    column="for_pro_storage2"    />
+        <result property="forProOther"    column="for_pro_other"    />
+        <result property="forProBaremodelno"    column="for_pro_bareModelNo"    />
+        <result property="forProCompmodelno"    column="for_pro_compModelNO"    />
+        <result property="forProPrice1"    column="for_pro_price_1"    />
+        <result property="forProPrice2"    column="for_pro_price_2"    />
+        <result property="forProPrice3"    column="for_pro_price_3"    />
+        <result property="forProPrice4"    column="for_pro_price_4"    />
+        <result property="forProBelongto"    column="for_pro_belongTo"    />
+        <result property="forCost"    column="for_cost"    />
+        <result property="forCostIncludetax"    column="for_cost_includeTax"    />
+        <result property="forReverse"    column="for_reverse"    />
+        <result property="forProGp1"    column="for_pro_GP_1"    />
+        <result property="forProGp2"    column="for_pro_GP_2"    />
+        <result property="forProGp3"    column="for_pro_GP_3"    />
+        <result property="forProGp4"    column="for_pro_GP_4"    />
+        <result property="forFitSubclass"    column="for_fit_subClass"    />
+        <result property="forFitEnnomodelno"    column="for_fit_ennoModelNO"    />
+        <result property="forFitPartnumber"    column="for_fit_partNumber"    />
+        <result property="forFitMqq"    column="for_fit_MQQ"    />
+        <result property="forFitPrice"    column="for_fit_price"    />
+        <result property="forFitPriceincludetax"    column="for_fit_priceIncludeTax"    />
+        <result property="forFitUpdate"    column="for_fit_update"    />
+        <result property="forFitNomove"    column="for_fit_NoMove"    />
+        <result property="forFitGp"    column="for_fit_GP"    />
+        <result property="forFitSupplier"    column="for_fit_supplier"    />
+        <result property="forFitSupppartnumber"    column="for_fit_suppPartNumber"    />
+        <result property="forFitOther"    column="for_fit_other"    />
+        <result property="forFitPn"    column="for_fit_Pn"    />
+        <result property="forFitFanprice"    column="for_fit_FanPrice"    />
+        <result property="forFitFanprice1"    column="for_fit_fanprice1"    />
+        <result property="forFitFancost"    column="for_fit_fanCost"    />
+        <result property="forFitManufacturntax"    column="for_fit_manufacturnTax"    />
+        <result property="forFitCosttax"    column="for_fit_costTax"    />
+        <result property="forFitFangp"    column="for_fit_fanGP"    />
+        <result property="forExchangerate"    column="for_exchangeRate"    />
+        <result property="forTaxrate"    column="for_taxRate"    />
+    </resultMap>
+
+    <sql id="selectProFormulaVo">
+        select for_id, for_class, for_type, for_decribes, for_pro_cpu, for_pro_memory, for_pro_storage1, for_pro_storage2, for_pro_other, for_pro_bareModelNo, for_pro_compModelNO, for_pro_price_1, for_pro_price_2, for_pro_price_3, for_pro_price_4, for_pro_belongTo, for_cost, for_cost_includeTax, for_reverse, for_pro_GP_1, for_pro_GP_2, for_pro_GP_3, for_pro_GP_4, for_fit_subClass, for_fit_ennoModelNO, for_fit_partNumber, for_fit_MQQ, for_fit_price, for_fit_priceIncludeTax, for_fit_update, for_fit_NoMove, for_fit_GP, for_fit_supplier, for_fit_suppPartNumber, for_fit_other, for_fit_Pn, for_fit_FanPrice, for_fit_fanprice1, for_fit_fanCost, for_fit_manufacturnTax, for_fit_costTax, for_fit_fanGP, for_exchangeRate, for_taxRate from pro_formula
+    </sql>
+
+    <select id="selectProFormulaList" parameterType="ProFormula" resultMap="ProFormulaResult">
+        <include refid="selectProFormulaVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectProFormulaById" parameterType="Long" resultMap="ProFormulaResult">
+        <include refid="selectProFormulaVo"/>
+        where for_id = #{forId}
+    </select>
+        
+    <insert id="insertProFormula" parameterType="ProFormula">
+        insert into pro_formula
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="forId != null">for_id,</if>
+            <if test="forClass != null">for_class,</if>
+            <if test="forType != null">for_type,</if>
+            <if test="forDecribes != null">for_decribes,</if>
+            <if test="forProCpu != null">for_pro_cpu,</if>
+            <if test="forProMemory != null">for_pro_memory,</if>
+            <if test="forProStorage1 != null">for_pro_storage1,</if>
+            <if test="forProStorage2 != null">for_pro_storage2,</if>
+            <if test="forProOther != null">for_pro_other,</if>
+            <if test="forProBaremodelno != null">for_pro_bareModelNo,</if>
+            <if test="forProCompmodelno != null">for_pro_compModelNO,</if>
+            <if test="forProPrice1 != null">for_pro_price_1,</if>
+            <if test="forProPrice2 != null">for_pro_price_2,</if>
+            <if test="forProPrice3 != null">for_pro_price_3,</if>
+            <if test="forProPrice4 != null">for_pro_price_4,</if>
+            <if test="forProBelongto != null">for_pro_belongTo,</if>
+            <if test="forCost != null">for_cost,</if>
+            <if test="forCostIncludetax != null">for_cost_includeTax,</if>
+            <if test="forReverse != null">for_reverse,</if>
+            <if test="forProGp1 != null">for_pro_GP_1,</if>
+            <if test="forProGp2 != null">for_pro_GP_2,</if>
+            <if test="forProGp3 != null">for_pro_GP_3,</if>
+            <if test="forProGp4 != null">for_pro_GP_4,</if>
+            <if test="forFitSubclass != null">for_fit_subClass,</if>
+            <if test="forFitEnnomodelno != null">for_fit_ennoModelNO,</if>
+            <if test="forFitPartnumber != null">for_fit_partNumber,</if>
+            <if test="forFitMqq != null">for_fit_MQQ,</if>
+            <if test="forFitPrice != null">for_fit_price,</if>
+            <if test="forFitPriceincludetax != null">for_fit_priceIncludeTax,</if>
+            <if test="forFitUpdate != null">for_fit_update,</if>
+            <if test="forFitNomove != null">for_fit_NoMove,</if>
+            <if test="forFitGp != null">for_fit_GP,</if>
+            <if test="forFitSupplier != null">for_fit_supplier,</if>
+            <if test="forFitSupppartnumber != null">for_fit_suppPartNumber,</if>
+            <if test="forFitOther != null">for_fit_other,</if>
+            <if test="forFitPn != null">for_fit_Pn,</if>
+            <if test="forFitFanprice != null">for_fit_FanPrice,</if>
+            <if test="forFitFanprice1 != null">for_fit_fanprice1,</if>
+            <if test="forFitFancost != null">for_fit_fanCost,</if>
+            <if test="forFitManufacturntax != null">for_fit_manufacturnTax,</if>
+            <if test="forFitCosttax != null">for_fit_costTax,</if>
+            <if test="forFitFangp != null">for_fit_fanGP,</if>
+            <if test="forExchangerate != null">for_exchangeRate,</if>
+            <if test="forTaxrate != null">for_taxRate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="forId != null">#{forId},</if>
+            <if test="forClass != null">#{forClass},</if>
+            <if test="forType != null">#{forType},</if>
+            <if test="forDecribes != null">#{forDecribes},</if>
+            <if test="forProCpu != null">#{forProCpu},</if>
+            <if test="forProMemory != null">#{forProMemory},</if>
+            <if test="forProStorage1 != null">#{forProStorage1},</if>
+            <if test="forProStorage2 != null">#{forProStorage2},</if>
+            <if test="forProOther != null">#{forProOther},</if>
+            <if test="forProBaremodelno != null">#{forProBaremodelno},</if>
+            <if test="forProCompmodelno != null">#{forProCompmodelno},</if>
+            <if test="forProPrice1 != null">#{forProPrice1},</if>
+            <if test="forProPrice2 != null">#{forProPrice2},</if>
+            <if test="forProPrice3 != null">#{forProPrice3},</if>
+            <if test="forProPrice4 != null">#{forProPrice4},</if>
+            <if test="forProBelongto != null">#{forProBelongto},</if>
+            <if test="forCost != null">#{forCost},</if>
+            <if test="forCostIncludetax != null">#{forCostIncludetax},</if>
+            <if test="forReverse != null">#{forReverse},</if>
+            <if test="forProGp1 != null">#{forProGp1},</if>
+            <if test="forProGp2 != null">#{forProGp2},</if>
+            <if test="forProGp3 != null">#{forProGp3},</if>
+            <if test="forProGp4 != null">#{forProGp4},</if>
+            <if test="forFitSubclass != null">#{forFitSubclass},</if>
+            <if test="forFitEnnomodelno != null">#{forFitEnnomodelno},</if>
+            <if test="forFitPartnumber != null">#{forFitPartnumber},</if>
+            <if test="forFitMqq != null">#{forFitMqq},</if>
+            <if test="forFitPrice != null">#{forFitPrice},</if>
+            <if test="forFitPriceincludetax != null">#{forFitPriceincludetax},</if>
+            <if test="forFitUpdate != null">#{forFitUpdate},</if>
+            <if test="forFitNomove != null">#{forFitNomove},</if>
+            <if test="forFitGp != null">#{forFitGp},</if>
+            <if test="forFitSupplier != null">#{forFitSupplier},</if>
+            <if test="forFitSupppartnumber != null">#{forFitSupppartnumber},</if>
+            <if test="forFitOther != null">#{forFitOther},</if>
+            <if test="forFitPn != null">#{forFitPn},</if>
+            <if test="forFitFanprice != null">#{forFitFanprice},</if>
+            <if test="forFitFanprice1 != null">#{forFitFanprice1},</if>
+            <if test="forFitFancost != null">#{forFitFancost},</if>
+            <if test="forFitManufacturntax != null">#{forFitManufacturntax},</if>
+            <if test="forFitCosttax != null">#{forFitCosttax},</if>
+            <if test="forFitFangp != null">#{forFitFangp},</if>
+            <if test="forExchangerate != null">#{forExchangerate},</if>
+            <if test="forTaxrate != null">#{forTaxrate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProFormula" parameterType="ProFormula">
+        update pro_formula
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="forClass != null">for_class = #{forClass},</if>
+            <if test="forType != null">for_type = #{forType},</if>
+            <if test="forDecribes != null">for_decribes = #{forDecribes},</if>
+            <if test="forProCpu != null">for_pro_cpu = #{forProCpu},</if>
+            <if test="forProMemory != null">for_pro_memory = #{forProMemory},</if>
+            <if test="forProStorage1 != null">for_pro_storage1 = #{forProStorage1},</if>
+            <if test="forProStorage2 != null">for_pro_storage2 = #{forProStorage2},</if>
+            <if test="forProOther != null">for_pro_other = #{forProOther},</if>
+            <if test="forProBaremodelno != null">for_pro_bareModelNo = #{forProBaremodelno},</if>
+            <if test="forProCompmodelno != null">for_pro_compModelNO = #{forProCompmodelno},</if>
+            <if test="forProPrice1 != null">for_pro_price_1 = #{forProPrice1},</if>
+            <if test="forProPrice2 != null">for_pro_price_2 = #{forProPrice2},</if>
+            <if test="forProPrice3 != null">for_pro_price_3 = #{forProPrice3},</if>
+            <if test="forProPrice4 != null">for_pro_price_4 = #{forProPrice4},</if>
+            <if test="forProBelongto != null">for_pro_belongTo = #{forProBelongto},</if>
+            <if test="forCost != null">for_cost = #{forCost},</if>
+            <if test="forCostIncludetax != null">for_cost_includeTax = #{forCostIncludetax},</if>
+            <if test="forReverse != null">for_reverse = #{forReverse},</if>
+            <if test="forProGp1 != null">for_pro_GP_1 = #{forProGp1},</if>
+            <if test="forProGp2 != null">for_pro_GP_2 = #{forProGp2},</if>
+            <if test="forProGp3 != null">for_pro_GP_3 = #{forProGp3},</if>
+            <if test="forProGp4 != null">for_pro_GP_4 = #{forProGp4},</if>
+            <if test="forFitSubclass != null">for_fit_subClass = #{forFitSubclass},</if>
+            <if test="forFitEnnomodelno != null">for_fit_ennoModelNO = #{forFitEnnomodelno},</if>
+            <if test="forFitPartnumber != null">for_fit_partNumber = #{forFitPartnumber},</if>
+            <if test="forFitMqq != null">for_fit_MQQ = #{forFitMqq},</if>
+            <if test="forFitPrice != null">for_fit_price = #{forFitPrice},</if>
+            <if test="forFitPriceincludetax != null">for_fit_priceIncludeTax = #{forFitPriceincludetax},</if>
+            <if test="forFitUpdate != null">for_fit_update = #{forFitUpdate},</if>
+            <if test="forFitNomove != null">for_fit_NoMove = #{forFitNomove},</if>
+            <if test="forFitGp != null">for_fit_GP = #{forFitGp},</if>
+            <if test="forFitSupplier != null">for_fit_supplier = #{forFitSupplier},</if>
+            <if test="forFitSupppartnumber != null">for_fit_suppPartNumber = #{forFitSupppartnumber},</if>
+            <if test="forFitOther != null">for_fit_other = #{forFitOther},</if>
+            <if test="forFitPn != null">for_fit_Pn = #{forFitPn},</if>
+            <if test="forFitFanprice != null">for_fit_FanPrice = #{forFitFanprice},</if>
+            <if test="forFitFanprice1 != null">for_fit_fanprice1 = #{forFitFanprice1},</if>
+            <if test="forFitFancost != null">for_fit_fanCost = #{forFitFancost},</if>
+            <if test="forFitManufacturntax != null">for_fit_manufacturnTax = #{forFitManufacturntax},</if>
+            <if test="forFitCosttax != null">for_fit_costTax = #{forFitCosttax},</if>
+            <if test="forFitFangp != null">for_fit_fanGP = #{forFitFangp},</if>
+            <if test="forExchangerate != null">for_exchangeRate = #{forExchangerate},</if>
+            <if test="forTaxrate != null">for_taxRate = #{forTaxrate},</if>
+        </trim>
+        where for_id = #{forId}
+    </update>
+
+    <delete id="deleteProFormulaById" parameterType="Long">
+        delete from pro_formula where for_id = #{forId}
+    </delete>
+
+    <delete id="deleteProFormulaByIds" parameterType="String">
+        delete from pro_formula where for_id in 
+        <foreach item="forId" collection="array" open="(" separator="," close=")">
+            #{forId}
+        </foreach>
+    </delete>
+
+</mapper>

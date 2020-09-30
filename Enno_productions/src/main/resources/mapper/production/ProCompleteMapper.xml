@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Enno.production.mapper.ProCompleteMapper">
+    
+    <resultMap type="ProComplete" id="ProCompleteResult">
+        <result property="completeId"    column="complete_id"    />
+        <result property="compClass"    column="comp_class"    />
+        <result property="compType"    column="comp_type"    />
+        <result property="compCpu"    column="comp_cpu"    />
+        <result property="compMemory"    column="comp_memory"    />
+        <result property="compStore1"    column="comp_store_1"    />
+        <result property="compStore2"    column="comp_store_2"    />
+        <result property="compOther"    column="comp_other"    />
+        <result property="compDescribe"    column="comp_describe"    />
+        <result property="compBareModel"    column="comp_bare_model"    />
+        <result property="compComplModel"    column="comp_compl_model"    />
+        <result property="compPrice1"    column="comp_price_1"    />
+        <result property="compPrice2"    column="comp_price_2"    />
+        <result property="compPrice3"    column="comp_price_3"    />
+        <result property="compPrice4"    column="comp_price_4"    />
+        <result property="compCost"    column="comp_cost"    />
+        <result property="compBelong"    column="comp_belong"    />
+        <result property="compCostTax"    column="comp_cost_tax"    />
+        <result property="compGp1"    column="comp_GP_1"    />
+        <result property="compGp2"    column="comp_GP_2"    />
+        <result property="compGp3"    column="comp_GP_3"    />
+        <result property="compGp4"    column="comp_GP_4"    />
+        <result property="compReserve"    column="comp_reserve"    />
+        <result property="compReserve1"    column="comp_reserve_1"    />
+        <result property="compReserve2"    column="comp_reserve_2"    />
+        <result property="compReserve3"    column="comp_reserve_3"    />
+        <result property="compReserve4"    column="comp_reserve_4"    />
+        <result property="compReserve5"    column="comp_reserve_5"    />
+    </resultMap>
+
+    <sql id="selectProCompleteVo">
+        select complete_id, comp_class, comp_type, comp_cpu, comp_memory, comp_store_1, comp_store_2, comp_other, comp_describe, comp_bare_model, comp_compl_model, comp_price_1, comp_price_2, comp_price_3, comp_price_4, comp_cost, comp_belong, comp_cost_tax, comp_GP_1, comp_GP_2, comp_GP_3, comp_GP_4, comp_reserve, comp_reserve_1, comp_reserve_2, comp_reserve_3, comp_reserve_4, comp_reserve_5 from pro_complete
+    </sql>
+
+    <select id="selectProCompleteList" parameterType="ProComplete" resultMap="ProCompleteResult">
+        <include refid="selectProCompleteVo"/>
+        <where>  
+            <if test="compClass != null  and compClass != ''"> and comp_class like concat('%', #{compClass}, '%')</if>
+            <if test="compType != null  and compType != ''"> and comp_type = #{compType}</if>
+            <if test="compCpu != null  and compCpu != ''"> and comp_cpu like concat('%', #{compCpu}, '%')</if>
+            <if test="compBareModel != null  and compBareModel != ''"> and comp_bare_model like concat('%', #{compBareModel}, '%')</if>
+            <if test="compComplModel != null  and compComplModel != ''"> and comp_compl_model like concat('%', #{compComplModel}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectProCompleteById" parameterType="Integer" resultMap="ProCompleteResult">
+        <include refid="selectProCompleteVo"/>
+        where complete_id = #{completeId}
+    </select>
+        
+    <insert id="insertProComplete" parameterType="ProComplete" useGeneratedKeys="true" keyProperty="completeId">
+        insert into pro_complete
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="compClass != null">comp_class,</if>
+            <if test="compType != null">comp_type,</if>
+            <if test="compCpu != null">comp_cpu,</if>
+            <if test="compMemory != null">comp_memory,</if>
+            <if test="compStore1 != null">comp_store_1,</if>
+            <if test="compStore2 != null">comp_store_2,</if>
+            <if test="compOther != null">comp_other,</if>
+            <if test="compDescribe != null">comp_describe,</if>
+            <if test="compBareModel != null">comp_bare_model,</if>
+            <if test="compComplModel != null">comp_compl_model,</if>
+            <if test="compPrice1 != null">comp_price_1,</if>
+            <if test="compPrice2 != null">comp_price_2,</if>
+            <if test="compPrice3 != null">comp_price_3,</if>
+            <if test="compPrice4 != null">comp_price_4,</if>
+            <if test="compCost != null">comp_cost,</if>
+            <if test="compBelong != null">comp_belong,</if>
+            <if test="compCostTax != null">comp_cost_tax,</if>
+            <if test="compGp1 != null">comp_GP_1,</if>
+            <if test="compGp2 != null">comp_GP_2,</if>
+            <if test="compGp3 != null">comp_GP_3,</if>
+            <if test="compGp4 != null">comp_GP_4,</if>
+            <if test="compReserve != null">comp_reserve,</if>
+            <if test="compReserve1 != null">comp_reserve_1,</if>
+            <if test="compReserve2 != null">comp_reserve_2,</if>
+            <if test="compReserve3 != null">comp_reserve_3,</if>
+            <if test="compReserve4 != null">comp_reserve_4,</if>
+            <if test="compReserve5 != null">comp_reserve_5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="compClass != null">#{compClass},</if>
+            <if test="compType != null">#{compType},</if>
+            <if test="compCpu != null">#{compCpu},</if>
+            <if test="compMemory != null">#{compMemory},</if>
+            <if test="compStore1 != null">#{compStore1},</if>
+            <if test="compStore2 != null">#{compStore2},</if>
+            <if test="compOther != null">#{compOther},</if>
+            <if test="compDescribe != null">#{compDescribe},</if>
+            <if test="compBareModel != null">#{compBareModel},</if>
+            <if test="compComplModel != null">#{compComplModel},</if>
+            <if test="compPrice1 != null">#{compPrice1},</if>
+            <if test="compPrice2 != null">#{compPrice2},</if>
+            <if test="compPrice3 != null">#{compPrice3},</if>
+            <if test="compPrice4 != null">#{compPrice4},</if>
+            <if test="compCost != null">#{compCost},</if>
+            <if test="compBelong != null">#{compBelong},</if>
+            <if test="compCostTax != null">#{compCostTax},</if>
+            <if test="compGp1 != null">#{compGp1},</if>
+            <if test="compGp2 != null">#{compGp2},</if>
+            <if test="compGp3 != null">#{compGp3},</if>
+            <if test="compGp4 != null">#{compGp4},</if>
+            <if test="compReserve != null">#{compReserve},</if>
+            <if test="compReserve1 != null">#{compReserve1},</if>
+            <if test="compReserve2 != null">#{compReserve2},</if>
+            <if test="compReserve3 != null">#{compReserve3},</if>
+            <if test="compReserve4 != null">#{compReserve4},</if>
+            <if test="compReserve5 != null">#{compReserve5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProComplete" parameterType="ProComplete">
+        update pro_complete
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="compClass != null">comp_class = #{compClass},</if>
+            <if test="compType != null">comp_type = #{compType},</if>
+            <if test="compCpu != null">comp_cpu = #{compCpu},</if>
+            <if test="compMemory != null">comp_memory = #{compMemory},</if>
+            <if test="compStore1 != null">comp_store_1 = #{compStore1},</if>
+            <if test="compStore2 != null">comp_store_2 = #{compStore2},</if>
+            <if test="compOther != null">comp_other = #{compOther},</if>
+            <if test="compDescribe != null">comp_describe = #{compDescribe},</if>
+            <if test="compBareModel != null">comp_bare_model = #{compBareModel},</if>
+            <if test="compComplModel != null">comp_compl_model = #{compComplModel},</if>
+            <if test="compPrice1 != null">comp_price_1 = #{compPrice1},</if>
+            <if test="compPrice2 != null">comp_price_2 = #{compPrice2},</if>
+            <if test="compPrice3 != null">comp_price_3 = #{compPrice3},</if>
+            <if test="compPrice4 != null">comp_price_4 = #{compPrice4},</if>
+            <if test="compCost != null">comp_cost = #{compCost},</if>
+            <if test="compBelong != null">comp_belong = #{compBelong},</if>
+            <if test="compCostTax != null">comp_cost_tax = #{compCostTax},</if>
+            <if test="compGp1 != null">comp_GP_1 = #{compGp1},</if>
+            <if test="compGp2 != null">comp_GP_2 = #{compGp2},</if>
+            <if test="compGp3 != null">comp_GP_3 = #{compGp3},</if>
+            <if test="compGp4 != null">comp_GP_4 = #{compGp4},</if>
+            <if test="compReserve != null">comp_reserve = #{compReserve},</if>
+            <if test="compReserve1 != null">comp_reserve_1 = #{compReserve1},</if>
+            <if test="compReserve2 != null">comp_reserve_2 = #{compReserve2},</if>
+            <if test="compReserve3 != null">comp_reserve_3 = #{compReserve3},</if>
+            <if test="compReserve4 != null">comp_reserve_4 = #{compReserve4},</if>
+            <if test="compReserve5 != null">comp_reserve_5 = #{compReserve5},</if>
+        </trim>
+        where complete_id = #{completeId}
+    </update>
+
+    <delete id="deleteProCompleteById" parameterType="Integer">
+        delete from pro_complete where complete_id = #{completeId}
+    </delete>
+
+    <delete id="deleteProCompleteByIds" parameterType="String">
+        delete from pro_complete where complete_id in 
+        <foreach item="completeId" collection="array" open="(" separator="," close=")">
+            #{completeId}
+        </foreach>
+    </delete>
+
+</mapper>
